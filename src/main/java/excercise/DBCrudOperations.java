@@ -84,7 +84,7 @@ public class DBCrudOperations {
             try {
                 insertPerson(k.getId(), k.getFirstName(), k.getLastName(), k.getAddressId());
             } catch (SQLException e) {
-                e.printStackTrace();
+                System.out.println("Please enter a VALID file location");
             }
         });
 
@@ -211,6 +211,31 @@ public class DBCrudOperations {
         pstmt.setInt(3, id);
 
         pstmt.executeUpdate();
+
+    }
+
+
+
+    public void updateUsersAddress(String userId, String addressID)  {
+
+        String sql = "update person set " +
+                " addressId = ?" +
+                "where ID = ?;";
+
+        PreparedStatement pstmt;
+
+        try {
+            pstmt = conn.prepareStatement(sql);
+            // set the corresponding param
+            pstmt.setInt(1, Integer.parseInt(addressID));
+            pstmt.setInt(2, Integer.parseInt(userId));
+
+            pstmt.executeUpdate();
+        } catch (SQLException throwables) {
+            System.out.println("Please enter a valid addressID");
+            throwables.printStackTrace();
+        }
+
 
     }
 
